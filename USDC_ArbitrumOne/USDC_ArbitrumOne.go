@@ -117,13 +117,16 @@ func Start(order sdb.Orders) bool {
 	//
 
 	if len(apiResponse.Result) > 0 {
-		// 将时间转为毫秒
 
+		// 将时间字符串转为数字
 		timeStamp, err := strconv.ParseInt(apiResponse.Result[0].TimeStamp, 10, 64)
 		if err != nil {
 			fmt.Println("时间戳转换失败:", err)
 			return false
 		}
+		// 将时间转为毫秒
+		timeStamp = timeStamp * 1000
+
 		// 格式化金额数字
 		amount := formatAmount(apiResponse.Result[0].Value)
 
